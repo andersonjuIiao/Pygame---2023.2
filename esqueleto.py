@@ -32,6 +32,20 @@ class Paddle:
     def draw(self, win):
         pygame.draw.rect(win, self.COLOR, (self.x, self.y, self.width, self.height))
 
+class Ball:
+    MAX_VEL = 5
+    COLOR = WHITE
+    def __init__(self,x,y,radius):
+        self.x = x
+        self.y = y
+        self.radius =radius
+        self. x_vel = MAX_VEL
+        self.y_vel = 0 
+    def draw(self, win):
+        pygame.draw.circle(win, self.COLOR, (self.x , self.y), self.radius)
+
+
+
 
 
 
