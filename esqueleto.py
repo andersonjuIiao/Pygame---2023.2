@@ -13,6 +13,8 @@ BLACK = (0, 0, 0)
 
 PADDLE_WIDTH, PADDLE_HEIGHT = 20, 100
 
+BALL_RADIUS = 7
+
 class Paddle:
     COLOR = WHITE
     VEL = 4
@@ -39,7 +41,7 @@ class Ball:
         self.x = x
         self.y = y
         self.radius = radius
-        self. x_vel = MAX_VEL
+        self. x_vel = self.MAX_VEL
         self.y_vel = 0 
     def draw(self, win):
         pygame.draw.circle(win, self.COLOR, (self.x , self.y), self.radius)
@@ -60,25 +62,33 @@ def draw(win, paddles):
 
     pygame.display.update()
 
-def handle_collision(ball,left_paddle, right_paddle):
+def handle_collision(ball, left_paddle, right_paddle):
     if ball.y + ball.radius >= HEIGHT:
         ball.y_vel *= -1
-    elif ball.y - ball.radius <=0:
+    elif ball.y - ball.radius <= 0:
         ball.y_vel *= -1
 
-    if ball.x_vel<0:
+    if ball.x_vel < 0:
         if ball.y >= left_paddle.y and ball.y <= left_paddle.y + left_paddle.height:
             if ball.x - ball.radius <= left_paddle.x + left_paddle.width:
                 ball.x_vel *= -1
 
-
-
+                middle_y = left_paddle.y + left_paddle.height / 2
+                difference_in_y = middle_y - ball.y
+                reduction_factor = (left_paddle.height / 2) / ball.MAX_VEL
+                y_vel = difference_in_y / reduction_factor
+                ball.y_vel = -1 * y_vel
 
     else:
         if ball.y >= right_paddle.y and ball.y <= right_paddle.y + right_paddle.height:
             if ball.x + ball.radius >= right_paddle.x:
                 ball.x_vel *= -1
-        
+
+                middle_y = right_paddle.y + right_paddle.height / 2
+                difference_in_y = middle_y - ball.y
+                reduction_factor = (right_paddle.height / 2) / ball.MAX_VEL
+                y_vel = difference_in_y / reduction_factor
+                ball.y_vel = -1 * y_vel
 
 
 def handle_paddle_movement(keys, Left_paddle, right_paddle):
@@ -99,6 +109,7 @@ def main():
 
     left_paddle = Paddle(10, HEIGHT//2 - PADDLE_HEIGHT//2, PADDLE_WIDTH, PADDLE_HEIGHT)
     right_paddle = Paddle(WIDTH - 10 - PADDLE_WIDTH, HEIGHT//2 - PADDLE_HEIGHT//2, PADDLE_WIDTH, PADDLE_HEIGHT)
+    ball = Ball(WIDTH // 2, HEIGHT // 2, BALL_RADIUS)
 
     while run:
         clock.tick(FPS)
