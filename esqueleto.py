@@ -2,7 +2,7 @@ import pygame
 pygame.init()
 
 
-WIDTH, HEIGHT = 501, 392
+WIDTH, HEIGHT = 512, 512
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Insper Pong")
 
@@ -12,7 +12,6 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 PADDLE_WIDTH, PADDLE_HEIGHT = 20, 100
-BALL_RADIUS = 7 
 
 class Paddle:
     COLOR = WHITE
@@ -39,31 +38,26 @@ class Ball:
     def __init__(self,x,y,radius):
         self.x = x
         self.y = y
-        self.radius =radius
-        self. x_vel = self.MAX_VEL
+        self.radius = radius
+        self. x_vel = MAX_VEL
         self.y_vel = 0 
-    
     def draw(self, win):
         pygame.draw.circle(win, self.COLOR, (self.x , self.y), self.radius)
 
-    def move(self):
-        self.x+=self.x_vel
-        self.y+=self.y_vel
 
 
 
 
 
-
-def draw(win, paddles, ball):
-    win.fill(BLACK)
+def draw(win, paddles):
+    
+    screen = pygame.display.set_mode((512, 512))
+    background = pygame.image.load(r'imagem/mesa pingpong 512x512.png')
+    screen.blit(background, (0, 0))
 
     for paddle in paddles:
         paddle.draw(win)
 
-    
-
-    ball.draw(win)
     pygame.display.update()
 
 def handle_paddle_movement(keys, Left_paddle, right_paddle):
@@ -84,11 +78,10 @@ def main():
 
     left_paddle = Paddle(10, HEIGHT//2 - PADDLE_HEIGHT//2, PADDLE_WIDTH, PADDLE_HEIGHT)
     right_paddle = Paddle(WIDTH - 10 - PADDLE_WIDTH, HEIGHT//2 - PADDLE_HEIGHT//2, PADDLE_WIDTH, PADDLE_HEIGHT)
-    ball = Ball(WIDTH //2 , HEIGHT // 2, BALL_RADIUS )
 
     while run:
         clock.tick(FPS)
-        draw(WIN, [left_paddle, right_paddle], ball)
+        draw(WIN, [left_paddle, right_paddle])
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -97,7 +90,6 @@ def main():
 
         keys = pygame.key.get_pressed()
         handle_paddle_movement(keys, left_paddle, right_paddle)
-        ball.move()
     
     pygame.quit
 
