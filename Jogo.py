@@ -4,6 +4,8 @@ from classes import *
 
 pygame.init()
 
+pygame.mixer.music.load("Goldeneye 64 - Watch.mp3")
+
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 screen = pygame.display.set_mode((501, 392))
