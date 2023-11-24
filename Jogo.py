@@ -1,10 +1,14 @@
 import os
 import pygame
 from classes import *
+from pygame import mixer
 
 pygame.init()
 
-pygame.mixer.music.load("Goldeneye 64 - Watch.mp3")
+mixer.init() 
+mixer.music.load("imagem/goldeneye.mp3") 
+mixer.music.set_volume(0.7) 
+mixer.music.play()
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
