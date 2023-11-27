@@ -1,4 +1,5 @@
 import pygame
+from pygame import mixer
 pygame.init()
 
 WIDTH, HEIGHT = 512, 512
