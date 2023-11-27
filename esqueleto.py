@@ -17,7 +17,7 @@ WINNING_SCORE = 10
 
 
 class Paddle:
-    VEL = 4
+    VEL = 5
 
     def __init__(self, x, y, width, height):
         self.x = self.original_x = x
