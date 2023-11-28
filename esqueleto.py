@@ -1,6 +1,13 @@
 import pygame
 from pygame import mixer
+import random
+
 pygame.init()
+
+mixer.init() 
+mixer.music.load("Efeitos Sonoros\Ppong1_1.mp3") 
+mixer.music.set_volume(0.7) 
+mixer.music.play()
 
 WIDTH, HEIGHT = 512, 512
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -108,6 +115,13 @@ def draw(win, paddles, ball, left_score, right_score, left_paddle_image, right_p
     right_paddle_image.draw(win)
     pygame.display.update()
 
+def efeitos_sonoros():
+    efeito_1 = "Efeitos Sonoros\Ppong1_1.mp3"
+    efeito_2 = "Efeitos Sonoros\Ppong2_1.mp3"
+    efeito_3 = "Efeitos Sonoros\Ppong3_1.mp3"
+    efeitos = [efeito_1,efeito_2,efeito_3]
+    efeito = random.choice(efeitos)
+    return efeito
 
 def handle_collision(ball, left_paddle, right_paddle):
     if ball.y + ball.radius >= HEIGHT:
@@ -118,6 +132,10 @@ def handle_collision(ball, left_paddle, right_paddle):
     if ball.x_vel < 0:
         if ball.y >= left_paddle.y and ball.y <= left_paddle.y + left_paddle.height:
             if ball.x - ball.radius <= left_paddle.x + left_paddle.width:
+                mixer.init() 
+                mixer.music.load(efeitos_sonoros()) 
+                mixer.music.set_volume(0.7) 
+                mixer.music.play()
                 ball.x_vel *= -1
 
                 middle_y = left_paddle.y + left_paddle.height / 2
@@ -129,6 +147,10 @@ def handle_collision(ball, left_paddle, right_paddle):
     else:
         if ball.y >= right_paddle.y and ball.y <= right_paddle.y + right_paddle.height:
             if ball.x + ball.radius >= right_paddle.x:
+                mixer.init() 
+                mixer.music.load(efeitos_sonoros()) 
+                mixer.music.set_volume(0.7) 
+                mixer.music.play()
                 ball.x_vel *= -1
 
                 middle_y = right_paddle.y + right_paddle.height / 2
