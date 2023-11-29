@@ -69,7 +69,7 @@ WINNING_SCORE = 5
 
 
 class Paddle:
-    VEL = 5
+    VEL = 5.5
 
     def __init__(self, x, y, width, height):
         self.x = self.original_x = x
@@ -92,7 +92,7 @@ class Paddle:
 
 
 class Ball:
-    MAX_VEL = 7
+    MAX_VEL = 6.5
     COLOR = WHITE
 
     def __init__(self, x, y, radius):
