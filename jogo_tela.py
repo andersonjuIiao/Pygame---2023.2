@@ -90,9 +90,9 @@ class Paddle:
         self.x = self.original_x
         self.y = self.original_y
 
-a = 5
+
 class Ball:
-    MAX_VEL = 5
+    MAX_VEL = 7
     COLOR = WHITE
 
     def __init__(self, x, y, radius):
@@ -178,7 +178,7 @@ def handle_collision(ball, left_paddle, right_paddle):
             if ball.x - ball.radius <= left_paddle.x + left_paddle.width:
                 mixer.init() 
                 mixer.music.load(efeitos_sonoros()) 
-                mixer.music.set_volume(0.8) 
+                mixer.music.set_volume(0.7) 
                 mixer.music.play()
                 ball.x_vel *= -1
 
@@ -193,7 +193,7 @@ def handle_collision(ball, left_paddle, right_paddle):
             if ball.x + ball.radius >= right_paddle.x:
                 mixer.init() 
                 mixer.music.load(efeitos_sonoros()) 
-                mixer.music.set_volume(0.8) 
+                mixer.music.set_volume(0.7) 
                 mixer.music.play()
                 ball.x_vel *= -1
 
