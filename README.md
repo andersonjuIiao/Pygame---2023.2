@@ -9,3 +9,5 @@ Regras:
 4- O intuito dos jogadores é utilizar os personagens para direcionar uma bola para longe do seu "lado da tela"(fora da mesa) com isso rebatendo a bola para o outro jogador.
 5- Os pontos são marcados e contabilizados quando a bola não é rebatida por um dos jogadores, portanto o jogador que deixar a bola passar e não rebater, fica um ponto atrás do outro jogador que conseguiu direcionar a bola para fora da mesa do jogador que não conseguiu rebater a bola.
 3- O vencedor é aquele que atingir a pontuação de 5 pontos primeiro.
+
+link do video de descrição do jogo: https://youtu.be/ad-4pa55-qk
