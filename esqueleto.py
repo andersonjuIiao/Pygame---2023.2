@@ -4,11 +4,6 @@ import random
 
 pygame.init()
 
-mixer.init() 
-mixer.music.load("Efeitos Sonoros\Ppong1_1.mp3") 
-mixer.music.set_volume(0.7) 
-mixer.music.play()
-
 WIDTH, HEIGHT = 512, 512
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Insper Pong")
@@ -48,7 +43,7 @@ class Paddle:
 
 
 class Ball:
-    MAX_VEL = 5
+    MAX_VEL = 7
     COLOR = WHITE
 
     def __init__(self, x, y, radius):
@@ -208,9 +203,11 @@ def main():
         handle_collision(ball, left_paddle, right_paddle)
 
         if ball.x < 0:
+            Ball.MAX_VEL += 2.0
             right_score += 1
             ball.reset()
         elif ball.x > WIDTH:
+            Ball.MAX_VEL += 2.0
             left_score += 1
             ball.reset()
 
