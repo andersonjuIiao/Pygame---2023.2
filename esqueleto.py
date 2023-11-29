@@ -13,11 +13,11 @@ PADDLE_WIDTH, PADDLE_HEIGHT = 20, 100
 BALL_RADIUS = 7
 
 SCORE_FONT = pygame.font.SysFont("comicsans", 50)
-WINNING_SCORE = 10
+WINNING_SCORE = 5
 
 
 class Paddle:
-    VEL = 4
+    VEL = 5
 
     def __init__(self, x, y, width, height):
         self.x = self.original_x = x
@@ -194,9 +194,13 @@ def main():
         won = False
         if left_score >= WINNING_SCORE:
             won = True
+            background = pygame.image.load(r'imagem/tela final.png')
+            screen.blit(background, (0, 0))
             win_text = "Poloni Ganhou!!!"
         elif right_score >= WINNING_SCORE:
             won = True
+            background = pygame.image.load(r'imagem/tela final.png')
+            screen.blit(background, (0, 0))
             win_text = "Resina Ganhou!!!"
 
         if won:
