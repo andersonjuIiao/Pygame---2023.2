@@ -1,13 +1,57 @@
+import os
 import pygame
 from pygame import mixer
+from classes import *  
 import random
 
+# Código da tela de início
 pygame.init()
 
 mixer.init() 
-mixer.music.load("Efeitos Sonoros\Ppong1_1.mp3") 
+mixer.music.load("imagem/goldeneye.mp3") 
 mixer.music.set_volume(0.7) 
 mixer.music.play()
+
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
+screen = pygame.display.set_mode((501, 392))
+
+background = pygame.image.load(r'imagem/Insper-Pong.png')
+
+fps = pygame.time.Clock()
+
+running = True
+
+ButtonGroups = pygame.sprite.Group()
+
+Button_1 = Botao(ButtonGroups)
+Button_1.rect.center = (280, 280)
+
+Button_2 = Botao(ButtonGroups)
+Button_2.rect.center = (280, 280)
+
+while running:
+    fps.tick(60)
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            if Button_1.rect.collidepoint(mouse_x, mouse_y):
+                running = False  # Sair do loop da tela de início
+
+    screen.fill((0))
+    screen.blit(background, (0, 0))
+
+    ButtonGroups.update()
+    ButtonGroups.draw(screen)
+
+    pygame.display.update()
+
+pygame.quit()
+
+pygame.init()
 
 WIDTH, HEIGHT = 512, 512
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -21,11 +65,11 @@ PADDLE_WIDTH, PADDLE_HEIGHT = 20, 100
 BALL_RADIUS = 7
 
 SCORE_FONT = pygame.font.SysFont("comicsans", 50)
-WINNING_SCORE = 5
+WINNING_SCORE = 7
 
 
 class Paddle:
-    VEL = 5
+    VEL = 5.5
 
     def __init__(self, x, y, width, height):
         self.x = self.original_x = x
@@ -46,7 +90,7 @@ class Paddle:
         self.x = self.original_x
         self.y = self.original_y
 
-
+a = 5
 class Ball:
     MAX_VEL = 5
     COLOR = WHITE
@@ -134,7 +178,7 @@ def handle_collision(ball, left_paddle, right_paddle):
             if ball.x - ball.radius <= left_paddle.x + left_paddle.width:
                 mixer.init() 
                 mixer.music.load(efeitos_sonoros()) 
-                mixer.music.set_volume(0.7) 
+                mixer.music.set_volume(0.8) 
                 mixer.music.play()
                 ball.x_vel *= -1
 
@@ -149,7 +193,7 @@ def handle_collision(ball, left_paddle, right_paddle):
             if ball.x + ball.radius >= right_paddle.x:
                 mixer.init() 
                 mixer.music.load(efeitos_sonoros()) 
-                mixer.music.set_volume(0.7) 
+                mixer.music.set_volume(0.8) 
                 mixer.music.play()
                 ball.x_vel *= -1
 
@@ -208,22 +252,20 @@ def main():
         handle_collision(ball, left_paddle, right_paddle)
 
         if ball.x < 0:
+            Ball.MAX_VEL += 2.0
             right_score += 1
             ball.reset()
         elif ball.x > WIDTH:
+            Ball.MAX_VEL += 2.0
             left_score += 1
             ball.reset()
 
         won = False
         if left_score >= WINNING_SCORE:
             won = True
-            background = pygame.image.load(r'imagem/tela final.png')
-            screen.blit(background, (0, 0))
             win_text = "Poloni Ganhou!!!"
         elif right_score >= WINNING_SCORE:
             won = True
-            background = pygame.image.load(r'imagem/tela final.png')
-            screen.blit(background, (0, 0))
             win_text = "Resina Ganhou!!!"
 
         if won:
